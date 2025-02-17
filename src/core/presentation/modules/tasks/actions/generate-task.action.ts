@@ -2,7 +2,6 @@
 
 import { actionClient } from '@/libs/next-safe-action.config';
 import { openai } from '@/libs/openai.config';
-import { prisma } from '@/libs/prisma.config';
 import { revalidatePath } from 'next/cache';
 import { zodResponseFormat } from 'openai/helpers/zod';
 import { z } from 'zod';
@@ -14,7 +13,7 @@ const generateTaskActionSchema = z.object({
 const generateTaskSchema = z.object({
   title: z.string(),
   description: z.string(),
-  status: z.enum(['Todo', 'InProgress', 'Completed', 'OnHold']),
+  status: z.enum(['not_started', 'in_progress', 'completed']),
 });
 
 export const generateTaskAction = actionClient.schema(generateTaskActionSchema).action(async ({ parsedInput }) => {
@@ -39,13 +38,7 @@ export const generateTaskAction = actionClient.schema(generateTaskActionSchema).
 
     if (!generatedTasks) throw new Error('No tasks generated');
 
-    await prisma.task.create({
-      data: {
-        title: generatedTasks.title,
-        description: generatedTasks.description,
-        status: generatedTasks.status,
-      },
-    });
+    console.log(generatedTasks);
 
     revalidatePath('/tasks/generation');
   } catch (error) {

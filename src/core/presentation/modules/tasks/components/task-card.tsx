@@ -4,7 +4,7 @@ type TaskCardProps = {
   id: string;
   title: string;
   description: string;
-  status: 'Todo' | 'InProgress' | 'Completed' | 'OnHold';
+  status: 'not_started' | 'in_progress' | 'completed';
 };
 
 export const TaskCard = ({ id, title, description, status }: TaskCardProps) => {
