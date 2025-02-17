@@ -1,4 +1,4 @@
-import { cn } from '@/core/presentation/config/libs/utils';
+import { cn } from '@/core/presentation/utils';
 import * as Clerk from '@clerk/elements/common';
 
 export const AuthenticationVerificationField = () => {
@@ -24,7 +24,7 @@ export const AuthenticationVerificationField = () => {
                 {value}
                 {status === 'cursor' && (
                   <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-                    <div className="h-4 w-px animate-caret-blink bg-foreground duration-1000" />
+                    <div className="animate-caret-blink h-4 w-px bg-foreground duration-1000" />
                   </div>
                 )}
               </div>
