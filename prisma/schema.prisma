@@ -22,7 +22,7 @@ model User {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  projects    Project[] 
+  // projects    Project[] 
   subscriptions Subscription[]
   assignedTasks Task[]
 }
@@ -31,13 +31,11 @@ model Project {
   id          String   @id @default(cuid())
   title       String
   description String
-  startDate   DateTime
-  endDate     DateTime
   ownerId     String   
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  owner       User     @relation(fields: [ownerId], references: [id])
+  // owner       User     @relation(fields: [ownerId], references: [id])
   tasks       Task[]   
 }
 
