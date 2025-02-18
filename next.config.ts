@@ -1,7 +1,7 @@
 import { withSentryConfig } from '@sentry/nextjs';
 
 const nextConfig = {
-  // Your existing Next.js configuration
+  serverExternalPackages: ['@sentry/nextjs'],
 };
 
 // Make sure adding Sentry options is the last code to run before exporting
