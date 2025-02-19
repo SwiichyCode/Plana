@@ -5,18 +5,17 @@ import { authActionClient } from '@/libs/next-safe-action.config';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
 
-const CreateProjectActionSchema = z.object({
-  title: z.string().min(1),
-  description: z.string().min(1),
+const DeleteProjectActionSchema = z.object({
+  projectId: z.string(),
 });
 
-export const createProjectAction = authActionClient
-  .schema(CreateProjectActionSchema)
-  .action(async ({ parsedInput, ctx }) => {
+export const deleteProjectAction = authActionClient
+  .schema(DeleteProjectActionSchema)
+  .action(async ({ parsedInput }) => {
     const projectService = getInjection('ProjectService');
 
     try {
-      await projectService.create({ ...parsedInput, ownerId: ctx.userId });
+      await projectService.delete(parsedInput.projectId);
       redirect('/dashboard');
     } catch (error) {
       throw error;

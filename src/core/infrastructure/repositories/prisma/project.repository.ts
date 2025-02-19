@@ -11,6 +11,7 @@ export class PrismaProjectRepository implements ProjectRepository {
       return await prisma.project.findUnique({
         where: {
           id,
+          deletedAt: null,
         },
       });
     } catch (err) {
@@ -24,6 +25,7 @@ export class PrismaProjectRepository implements ProjectRepository {
       return await prisma.project.findMany({
         where: {
           ownerId: userId,
+          deletedAt: null,
         },
       });
     } catch (err) {
@@ -36,6 +38,22 @@ export class PrismaProjectRepository implements ProjectRepository {
     try {
       return await prisma.project.create({
         data: project,
+      });
+    } catch (err) {
+      this.crashReporterService.report(err);
+      throw err;
+    }
+  }
+
+  async delete(id: string): Promise<void> {
+    try {
+      await prisma.project.update({
+        where: {
+          id,
+        },
+        data: {
+          deletedAt: new Date(),
+        },
       });
     } catch (err) {
       this.crashReporterService.report(err);

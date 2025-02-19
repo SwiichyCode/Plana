@@ -1,4 +1,5 @@
 import { getInjection } from '#di/container';
+import { DeleteProjectPopover } from '@/core/presentation/modules/dashboard/components/projects/delete-project-popover';
 import { ProjectHeader } from '@/core/presentation/modules/dashboard/components/projects/project-header';
 
 export default async function ProjectSettingsPage({ params }: { params: Promise<{ id: string }> }) {
@@ -10,6 +11,7 @@ export default async function ProjectSettingsPage({ params }: { params: Promise<
   return (
     <div className="mx-auto max-w-3xl">
       <ProjectHeader project={project} />
+      <DeleteProjectPopover projectId={project.id} projectTitle={project.title} />
     </div>
   );
 }

@@ -6,6 +6,7 @@ export class Project {
     public ownerId: string,
     public createdAt: Date,
     public updatedAt: Date,
+    public deletedAt: Date | null,
   ) {
     this.id = id;
     this.title = title;
@@ -13,5 +14,6 @@ export class Project {
     this.ownerId = ownerId;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
+    this.deletedAt = deletedAt;
   }
 }

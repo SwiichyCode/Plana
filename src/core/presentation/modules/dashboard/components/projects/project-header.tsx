@@ -9,7 +9,7 @@ type ProjectHeaderProps = {
 export const ProjectHeader = ({ project }: ProjectHeaderProps) => {
   return (
     <div>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 py-8">
         <ProjectLogo name={project.title} />
 
         <div className="flex flex-col">

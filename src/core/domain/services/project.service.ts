@@ -15,4 +15,8 @@ export class ProjectService {
   async create(project: CreateProject): Promise<Project> {
     return await this.projectRepository.create(project);
   }
+
+  async delete(id: string): Promise<void> {
+    return await this.projectRepository.delete(id);
+  }
 }

@@ -5,7 +5,7 @@ export interface ProjectRepository {
   findByOwner(userId: string): Promise<Project[]>;
   create(project: CreateProject): Promise<Project>;
   // update(project: Project): Promise<Project>;
-  // delete(id: string): Promise<void>;
+  delete(id: string): Promise<void>;
 }
 
 export type CreateProject = {
