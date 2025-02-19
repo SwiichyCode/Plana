@@ -1,6 +1,8 @@
 import { Project } from '@/core/domain/entities/project.entity';
 import { CreateProject, ProjectRepository } from '@/core/domain/repositories/project.repository';
 
+import { TransactionContext } from '../repositories/transaction-manager.repository';
+
 export class ProjectService {
   constructor(private readonly projectRepository: ProjectRepository) {}
 
@@ -12,8 +14,8 @@ export class ProjectService {
     return await this.projectRepository.findByOwner(userId);
   }
 
-  async create(project: CreateProject): Promise<Project> {
-    return await this.projectRepository.create(project);
+  async create(project: CreateProject, tx?: TransactionContext): Promise<Project> {
+    return await this.projectRepository.create(project, tx);
   }
 
   async delete(id: string): Promise<void> {

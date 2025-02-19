@@ -1,7 +1,9 @@
 import { Project } from '@/core/domain/entities/project.entity';
 import { ProjectRepository } from '@/core/domain/repositories/project.repository';
+import { TransactionContext } from '@/core/domain/repositories/transaction-manager.repository';
 import { CrashReporterService } from '@/core/domain/services/crash-reporter.service';
 import { prisma } from '@/libs/prisma.config';
+import { Prisma } from '@prisma/client';
 
 export class PrismaProjectRepository implements ProjectRepository {
   constructor(private readonly crashReporterService: CrashReporterService) {}
@@ -34,11 +36,11 @@ export class PrismaProjectRepository implements ProjectRepository {
     }
   }
 
-  async create(project: Project): Promise<Project> {
+  async create(project: Project, tx?: TransactionContext): Promise<Project> {
     try {
-      return await prisma.project.create({
-        data: project,
-      });
+      const invoker = (tx as Prisma.TransactionClient) ?? prisma;
+
+      return await invoker.project.create({ data: { ...project } });
     } catch (err) {
       this.crashReporterService.report(err);
       throw err;

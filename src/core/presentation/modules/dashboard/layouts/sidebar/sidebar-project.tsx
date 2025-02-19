@@ -1,3 +1,5 @@
+'use client';
+
 import { Project } from '@/core/domain/entities/project.entity';
 import {
   Collapsible,
@@ -16,18 +18,36 @@ import {
   SidebarMenuSubItem,
 } from '@/core/presentation/components/common/ui/sidebar';
 import { ChevronRight, Eye, File, Plus, Settings2, Users } from 'lucide-react';
+import { useLocalStorage } from 'usehooks-ts';
 
 type SidebarProjectProps = {
   projects: Project[];
 };
 
 export const Sidebar_Project = ({ projects }: SidebarProjectProps) => {
+  const [currentCollapsibleProjectOpen, setCurrentCollapsibleProjectOpen, removeCurrentCollapsible] = useLocalStorage(
+    'current-collapsible-project-open',
+    '',
+    { initializeWithValue: false },
+  );
+
+  const handleOpenChange = (projectId: string) => {
+    currentCollapsibleProjectOpen === projectId
+      ? removeCurrentCollapsible()
+      : setCurrentCollapsibleProjectOpen(projectId);
+  };
+
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
       <SidebarGroupLabel>Projects</SidebarGroupLabel>
       <SidebarMenu>
         {projects.map(project => (
-          <Collapsible key={project.id} asChild>
+          <Collapsible
+            key={project.id}
+            asChild
+            open={currentCollapsibleProjectOpen === project.id}
+            onOpenChange={() => handleOpenChange(project.id)}
+          >
             <SidebarMenuItem>
               <SidebarMenuButton asChild>
                 <a href={`/dashboard/projects/${project.id}`}>
