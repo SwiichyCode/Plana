@@ -1,7 +1,7 @@
 import { Project } from '@/core/domain/entities/project.entity';
 
 export interface ProjectRepository {
-  // findById(id: string): Promise<Project | null>;
+  findById(id: string): Promise<Project | null>;
   findByOwner(userId: string): Promise<Project[]>;
   create(project: CreateProject): Promise<Project>;
   // update(project: Project): Promise<Project>;

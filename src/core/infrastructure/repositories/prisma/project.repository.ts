@@ -6,6 +6,19 @@ import { prisma } from '@/libs/prisma.config';
 export class PrismaProjectRepository implements ProjectRepository {
   constructor(private readonly crashReporterService: CrashReporterService) {}
 
+  async findById(id: string): Promise<Project | null> {
+    try {
+      return await prisma.project.findUnique({
+        where: {
+          id,
+        },
+      });
+    } catch (err) {
+      this.crashReporterService.report(err);
+      throw err;
+    }
+  }
+
   async findByOwner(userId: string): Promise<Project[]> {
     try {
       return await prisma.project.findMany({
