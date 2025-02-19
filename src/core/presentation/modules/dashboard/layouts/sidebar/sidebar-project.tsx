@@ -63,7 +63,7 @@ export const Sidebar_Project = ({ projects }: SidebarProjectProps) => {
                   </SidebarMenuSubItem>
                   <SidebarMenuSubItem>
                     <SidebarMenuSubButton asChild>
-                      <a href={`/dashboard/projects/${project.id}`} className="text-xs text-muted-foreground">
+                      <a href={`/dashboard/projects/${project.id}/settings`} className="text-xs text-muted-foreground">
                         <Settings2 />
                         <span className="text-sx truncate">Settings</span>
                       </a>
