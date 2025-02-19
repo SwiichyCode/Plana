@@ -38,9 +38,9 @@ export class PrismaProjectRepository implements ProjectRepository {
 
   async create(project: Project, tx?: TransactionContext): Promise<Project> {
     try {
-      return await (tx
-        ? (tx as Prisma.TransactionClient).project.create({ data: { ...project } })
-        : prisma.project.create({ data: { ...project } }));
+      const invoker = (tx as Prisma.TransactionClient) ?? prisma;
+
+      return await invoker.project.create({ data: { ...project } });
     } catch (err) {
       this.crashReporterService.report(err);
       throw err;

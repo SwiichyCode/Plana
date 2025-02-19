@@ -9,13 +9,11 @@ export class PrismaProjectMemberRepository implements ProjectMemberRepository {
 
   async assignOwnerMembership(projectId: string, userId: string, tx?: TransactionContext): Promise<void> {
     try {
-      await (tx
-        ? (tx as Prisma.TransactionClient).projectMember.create({
-            data: { projectId, userId, role: 'owner' },
-          })
-        : prisma.projectMember.create({
-            data: { projectId, userId, role: 'owner' },
-          }));
+      const invoker = (tx as Prisma.TransactionClient) ?? prisma;
+
+      await invoker.projectMember.create({
+        data: { projectId, userId, role: 'owner' },
+      });
     } catch (err) {
       this.crashReporterService.report(err);
       throw err;
