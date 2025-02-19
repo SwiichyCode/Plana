@@ -25,7 +25,7 @@ type SidebarProjectProps = {
 };
 
 export const Sidebar_Project = ({ projects }: SidebarProjectProps) => {
-  const [currentCollapsibleProjectOpen, setCurrentCollapsibleProjectOpen] = useLocalStorage(
+  const [currentCollapsibleProjectOpen, setCurrentCollapsibleProjectOpen, removeCurrentCollapsible] = useLocalStorage(
     'current-collapsible-project-open',
     '',
     { initializeWithValue: false },
@@ -33,7 +33,7 @@ export const Sidebar_Project = ({ projects }: SidebarProjectProps) => {
 
   const handleOpenChange = (projectId: string) => {
     currentCollapsibleProjectOpen === projectId
-      ? setCurrentCollapsibleProjectOpen('')
+      ? removeCurrentCollapsible()
       : setCurrentCollapsibleProjectOpen(projectId);
   };
 

@@ -13,10 +13,10 @@ const CreateProjectActionSchema = z.object({
 export const createProjectAction = authActionClient
   .schema(CreateProjectActionSchema)
   .action(async ({ parsedInput, ctx }) => {
-    const projectService = getInjection('ProjectService');
+    const createProjectUseCase = getInjection('CreateProjectUseCase');
 
     try {
-      await projectService.create({ ...parsedInput, ownerId: ctx.userId });
+      await createProjectUseCase.execute({ ...parsedInput, ownerId: ctx.userId });
       redirect('/dashboard');
     } catch (error) {
       throw error;
