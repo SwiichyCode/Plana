@@ -7,7 +7,9 @@ import { createModule } from '@evyweb/ioctopus';
 export function createClerkWebhookModule() {
   const clerkWebhookModule = createModule();
 
-  clerkWebhookModule.bind(DI_SYMBOLS.UserCreatedEvent).toClass(UserCreatedEvent);
+  clerkWebhookModule
+    .bind(DI_SYMBOLS.UserCreatedEvent)
+    .toClass(UserCreatedEvent, [DI_SYMBOLS.UserService, DI_SYMBOLS.CrashReporterService]);
 
   clerkWebhookModule.bind(DI_SYMBOLS.WebhookEventHandler).toFactory(() => {
     return [ApplicationContainer.get(DI_SYMBOLS.UserCreatedEvent)];
