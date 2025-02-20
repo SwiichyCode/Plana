@@ -9,8 +9,6 @@ export default async function ProjectSettingsPage({ params }: { params: Promise<
 
   if (!project) return <div>Project not found</div>;
 
-  console.log(project.aiApiKey);
-
   return (
     <div className="mx-auto max-w-3xl">
       <ProjectHeader project={project} />

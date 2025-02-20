@@ -9,10 +9,15 @@ import { createModule } from '@evyweb/ioctopus';
 export function createProjectModule() {
   const projectModule = createModule();
 
+  // TODO: Create separate module for ProjectMemberRepository repository
   projectModule.bind(DI_SYMBOLS.ProjectMemberRepository).toClass(PrismaProjectMemberRepository);
 
-  projectModule.bind(DI_SYMBOLS.ProjectRepository).toClass(PrismaProjectRepository, [DI_SYMBOLS.CrashReporterService]);
+  projectModule
+    .bind(DI_SYMBOLS.ProjectRepository)
+    .toClass(PrismaProjectRepository, [DI_SYMBOLS.EncryptionService, DI_SYMBOLS.CrashReporterService]);
+
   projectModule.bind(DI_SYMBOLS.ProjectService).toClass(ProjectService, [DI_SYMBOLS.ProjectRepository]);
+
   projectModule
     .bind(DI_SYMBOLS.ProjectMemberService)
     .toClass(ProjectMemberService, [DI_SYMBOLS.ProjectMemberRepository]);
