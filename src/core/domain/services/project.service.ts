@@ -1,5 +1,5 @@
 import { Project } from '@/core/domain/entities/project.entity';
-import { CreateProject, ProjectRepository } from '@/core/domain/repositories/project.repository';
+import { CreateProject, ProjectRepository, UpdateProject } from '@/core/domain/repositories/project.repository';
 
 import { TransactionContext } from '../repositories/transaction-manager.repository';
 
@@ -16,6 +16,10 @@ export class ProjectService {
 
   async create(project: CreateProject, tx?: TransactionContext): Promise<Project> {
     return await this.projectRepository.create(project, tx);
+  }
+
+  async update(project: UpdateProject): Promise<Project> {
+    return await this.projectRepository.update(project);
   }
 
   async delete(id: string): Promise<void> {

@@ -5,7 +5,7 @@ export interface ProjectRepository {
   findById(id: string): Promise<Project | null>;
   findByOwner(userId: string): Promise<Project[]>;
   create(project: CreateProject, tx?: TransactionContext): Promise<Project>;
-  // update(project: Project): Promise<Project>;
+  update(project: UpdateProject): Promise<Project>;
   delete(id: string): Promise<void>;
 }
 
@@ -13,4 +13,11 @@ export type CreateProject = {
   title: string;
   description: string;
   ownerId: string;
+};
+
+export type UpdateProject = {
+  id: string;
+  title?: string;
+  description?: string;
+  aiApiKey?: string;
 };

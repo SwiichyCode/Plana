@@ -34,6 +34,8 @@ model Project {
   title       String
   description String
   ownerId     String   
+  projectDescriptionContext String?
+  aiApiKey    String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   deletedAt   DateTime?

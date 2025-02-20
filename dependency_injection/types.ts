@@ -1,9 +1,11 @@
+import { EncryptionRepository } from '@/core/domain/repositories/encryption.repository';
 import { CrashReporterRepository } from '@/core/domain/repositories/monitoring.repository';
 import { ProjectMemberRepository } from '@/core/domain/repositories/project-member.repository';
 import { ProjectRepository } from '@/core/domain/repositories/project.repository';
 import { TransactionManager } from '@/core/domain/repositories/transaction-manager.repository';
 import { UserRepository } from '@/core/domain/repositories/user.repository';
 import { CrashReporterService } from '@/core/domain/services/crash-reporter.service';
+import { EncryptionService } from '@/core/domain/services/encryption.service';
 import { ProjectMemberService } from '@/core/domain/services/project-member.service';
 import { ProjectService } from '@/core/domain/services/project.service';
 import { UserService } from '@/core/domain/services/user.service';
@@ -18,6 +20,7 @@ export const DI_SYMBOLS = {
   ProjectService: Symbol.for('ProjectService'),
   ProjectMemberService: Symbol.for('ProjectMemberService'),
   CrashReporterService: Symbol.for('CrashReporterService'),
+  EncryptionService: Symbol.for('EncryptionService'),
   TransactionManager: Symbol.for('TransactionManager'),
 
   // Use Cases
@@ -28,6 +31,8 @@ export const DI_SYMBOLS = {
   ProjectRepository: Symbol.for('ProjectRepository'),
   ProjectMemberRepository: Symbol.for('ProjectMemberRepository'),
   CrashReporterRepository: Symbol.for('CrashReporterRepository'),
+  TransactionRepository: Symbol.for('TransactionRepository'),
+  EncryptionRepository: Symbol.for('EncryptionRepository'),
 
   // Webhooks
   ClerkWebhookHandler: Symbol.for('ClerkWebhookHandler'),
@@ -41,6 +46,7 @@ export interface DI_RETURN_TYPES {
   ProjectService: ProjectService;
   ProjectMemberService: ProjectMemberService;
   CrashReporterService: CrashReporterService;
+  EncryptionService: EncryptionService;
   TransactionManager: TransactionManager;
 
   // Use Cases
@@ -51,6 +57,8 @@ export interface DI_RETURN_TYPES {
   ProjectRepository: ProjectRepository;
   ProjectMemberRepository: ProjectMemberRepository;
   CrashReporterRepository: CrashReporterRepository;
+  TransactionRepository: TransactionManager;
+  EncryptionRepository: EncryptionRepository;
 
   // Webhooks
   ClerkWebhookHandler: ClerkWebhookHandler;
