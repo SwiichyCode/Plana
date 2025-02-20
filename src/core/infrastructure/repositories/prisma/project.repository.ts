@@ -1,5 +1,5 @@
 import { Project } from '@/core/domain/entities/project.entity';
-import { ProjectRepository } from '@/core/domain/repositories/project.repository';
+import { ProjectRepository, UpdateProject } from '@/core/domain/repositories/project.repository';
 import { TransactionContext } from '@/core/domain/repositories/transaction-manager.repository';
 import { CrashReporterService } from '@/core/domain/services/crash-reporter.service';
 import { prisma } from '@/libs/prisma.config';
@@ -41,6 +41,24 @@ export class PrismaProjectRepository implements ProjectRepository {
       const invoker = (tx as Prisma.TransactionClient) ?? prisma;
 
       return await invoker.project.create({ data: { ...project } });
+    } catch (err) {
+      this.crashReporterService.report(err);
+      throw err;
+    }
+  }
+
+  async update(project: UpdateProject): Promise<Project> {
+    try {
+      return await prisma.project.update({
+        where: {
+          id: project.id,
+        },
+        data: {
+          title: project.title,
+          description: project.description,
+          aiApiKey: project.aiApiKey,
+        },
+      });
     } catch (err) {
       this.crashReporterService.report(err);
       throw err;
