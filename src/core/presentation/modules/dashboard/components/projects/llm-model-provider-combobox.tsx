@@ -12,6 +12,7 @@ import {
   FormDescription,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from '@/core/presentation/components/common/ui/form';
 import { Popover, PopoverContent, PopoverTrigger } from '@/core/presentation/components/common/ui/popover';
@@ -36,13 +37,14 @@ export const LLMModelCombobox = ({ form, control, disabled, name, provider }: Co
       name={name}
       render={({ field }) => (
         <FormItem className="flex flex-col">
+          <FormLabel className="font-semibold">Model</FormLabel>
           <Popover>
             <PopoverTrigger asChild disabled={disabled}>
               <FormControl>
                 <Button
                   variant="outline"
                   role="combobox"
-                  className={cn('w-[200px] justify-between', !field.value && 'text-muted-foreground')}
+                  className={cn('w-full justify-between', !field.value && 'text-muted-foreground')}
                 >
                   {field.value ? currentModels.find(model => model === field.value) : 'Select model'}
                   <ChevronsUpDown className="opacity-50" />

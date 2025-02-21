@@ -43,8 +43,10 @@ export const ProjectDescriptionContextForm = ({ project }: ProjectDescriptionCon
         <h2 className="mb-6 text-2xl font-bold">Project context Configuration</h2>
         <TextAreaForm
           control={form.control}
+          label="Project context"
           name="projectDescriptionContext"
           placeholder="Describe your project in detail (goals, features, technical stack, constraints, etc.)"
+          className="[&_label]:font-semibold"
         />
         <FormDescription>
           This description is crucial for providing context about your project. The more detailed it is, the better your

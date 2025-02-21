@@ -55,29 +55,36 @@ export const LLMConfigForm = ({ project }: AddAiApiKeyProps) => {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-4">
         <h2 className="mb-6 text-2xl font-bold">LLM Configuration</h2>
-        <LLMProviderCombobox
-          form={form}
-          control={form.control}
-          name="llmProvider"
-          disabled={project.llmApiKey ? true : false}
-        />
+        <div className="flex gap-16">
+          <div className="w-[50%]">
+            <LLMProviderCombobox
+              form={form}
+              control={form.control}
+              name="llmProvider"
+              disabled={project.llmApiKey ? true : false}
+            />
+          </div>
 
-        <LLMModelCombobox
-          form={form}
-          control={form.control}
-          name="llmModel"
-          disabled={project.llmApiKey ? true : false}
-          provider={llmProvider}
-        />
+          <div className="w-[50%]">
+            <LLMModelCombobox
+              form={form}
+              control={form.control}
+              name="llmModel"
+              disabled={project.llmApiKey ? true : false}
+              provider={llmProvider}
+            />
+          </div>
+        </div>
 
         <div className="flex flex-col gap-2">
           <div className="flex items-end gap-4">
             <InputForm
               control={form.control}
               name="llmApiKey"
+              label="API Key"
               placeholder="sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
               disabled={project.llmApiKey ? true : false}
-              className="w-[300px]"
+              className="w-full [&_label]:font-semibold"
             />
             {project.llmApiKey ? (
               <Button type="submit" disabled={isPending} variant={'destructive'}>

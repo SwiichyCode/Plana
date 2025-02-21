@@ -11,5 +11,5 @@ export const compareStrings = (str1: string, str2: string): boolean => {
 
 export const maskApiKey = (key: string) => {
   if (!key) return '';
-  return key.slice(0, 3) + '*'.repeat(25) + key.slice(-4);
+  return key.slice(0, 3) + '*'.repeat(50) + key.slice(-4);
 };
