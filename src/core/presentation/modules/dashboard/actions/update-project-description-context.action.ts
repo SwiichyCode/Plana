@@ -16,8 +16,9 @@ export const updateProjectDescriptionContextAction = authActionClient
     const projectService = getInjection('ProjectService');
     try {
       await projectService.updateDescriptionContext(parsedInput.id, parsedInput.projectDescriptionContext);
-      redirect(`/dashboard/projects/${parsedInput.id}/settings`);
     } catch (error) {
       if (error instanceof Error) throw new MyCustomError(error.message);
     }
+
+    redirect(`/dashboard/projects/${parsedInput.id}/settings`);
   });

@@ -26,9 +26,9 @@ export const updateLLMConfigAction = authActionClient
         llmModel: parsedInput.llmModel,
         llmApiKey: parsedInput.llmApiKey,
       });
-
-      redirect(`/dashboard/projects/${parsedInput.id}/settings`);
     } catch (error) {
       if (error instanceof Error) throw new MyCustomError(error.message);
     }
+
+    redirect(`/dashboard/projects/${parsedInput.id}/settings`);
   });
