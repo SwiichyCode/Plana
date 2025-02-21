@@ -11,6 +11,7 @@ import {
   FormDescription,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from '@/core/presentation/components/common/ui/form';
 import { Popover, PopoverContent, PopoverTrigger } from '@/core/presentation/components/common/ui/popover';
@@ -37,13 +38,14 @@ export const LLMProviderCombobox = ({ form, control, disabled, name }: ComboboxP
       name={name}
       render={({ field }) => (
         <FormItem className="flex flex-col">
+          <FormLabel className="font-semibold">Provider</FormLabel>
           <Popover>
             <PopoverTrigger asChild disabled={disabled}>
               <FormControl>
                 <Button
                   variant="outline"
                   role="combobox"
-                  className={cn('w-[200px] justify-between', !field.value && 'text-muted-foreground')}
+                  className={cn('w-full justify-between', !field.value && 'text-muted-foreground')}
                 >
                   {field.value ? aiProviders.find(provider => provider.value === field.value)?.label : 'Select model'}
                   <ChevronsUpDown className="opacity-50" />

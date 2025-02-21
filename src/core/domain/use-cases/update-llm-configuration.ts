@@ -3,7 +3,7 @@ import { LLMProviderHandler, SupportedLLMProvider } from '@/core/infrastructure/
 
 import { UpdateProject } from '../repositories/project.repository';
 
-export class UpdateProjectUseCase {
+export class UpdateLLMConfigurationUseCase {
   constructor(
     public readonly projectService: ProjectService,
     public readonly llmProviderHandler: LLMProviderHandler,

@@ -1,7 +1,7 @@
 'use server';
 
 import { getInjection } from '#di/container';
-import { authActionClient } from '@/libs/next-safe-action.config';
+import { MyCustomError, authActionClient } from '@/libs/next-safe-action.config';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
 
@@ -18,6 +18,6 @@ export const updateProjectDescriptionContextAction = authActionClient
       await projectService.updateDescriptionContext(parsedInput.id, parsedInput.projectDescriptionContext);
       redirect(`/dashboard/projects/${parsedInput.id}/settings`);
     } catch (error) {
-      throw error;
+      if (error instanceof Error) throw new MyCustomError(error.message);
     }
   });
