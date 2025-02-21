@@ -51,11 +51,10 @@ export const LLMConfigForm = ({ project }: AddAiApiKeyProps) => {
 
   const llmProvider = useWatch({ name: 'llmProvider', control: form.control });
 
-  console.log(llmProvider);
-
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-4">
+        <h2 className="mb-6 text-2xl font-bold">LLM Configuration</h2>
         <LLMProviderCombobox
           form={form}
           control={form.control}

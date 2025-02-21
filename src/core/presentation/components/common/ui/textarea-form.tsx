@@ -24,7 +24,7 @@ const TextAreaForm = React.forwardRef<HTMLTextAreaElement, TextAreaFormProps>(
         name={name}
         render={({ field }) => (
           <FormItem className={className}>
-            {label && <FormLabel>{label}</FormLabel>}
+            {label && <FormLabel className="font-semibold underline">{label}</FormLabel>}
             <FormControl>
               <Textarea {...field} ref={ref} className={className} {...props} />
             </FormControl>

@@ -9,7 +9,7 @@ import { z } from 'zod';
 const UpdateLLMConfigActionSchema = z.object({
   id: z.string(),
   title: z.string().optional(),
-  description: z.string().optional(),
+  projectDescriptionContext: z.string().optional(),
   llmProvider: z.string(),
   llmModel: z.string(),
   llmApiKey: z.string(),
@@ -20,12 +20,12 @@ export const updateLLMConfigAction = authActionClient
   .action(async ({ parsedInput }) => {
     const updateProjectUseCase = getInjection('UpdateProjectUseCase');
     try {
-      await updateProjectUseCase.execute(
-        parsedInput.id,
-        parsedInput.llmProvider as SupportedLLMProvider,
-        parsedInput.llmModel,
-        parsedInput.llmApiKey,
-      );
+      await updateProjectUseCase.execute({
+        id: parsedInput.id,
+        llmProvider: parsedInput.llmProvider as SupportedLLMProvider,
+        llmModel: parsedInput.llmModel,
+        llmApiKey: parsedInput.llmApiKey,
+      });
 
       redirect(`/dashboard/projects/${parsedInput.id}/settings`);
     } catch (error) {

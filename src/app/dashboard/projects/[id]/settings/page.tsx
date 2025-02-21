@@ -1,6 +1,7 @@
 import { getInjection } from '#di/container';
 import { DeleteProjectPopover } from '@/core/presentation/modules/dashboard/components/projects/delete-project-popover';
 import { LLMConfigForm } from '@/core/presentation/modules/dashboard/components/projects/llm-config.form';
+import { ProjectDescriptionContextForm } from '@/core/presentation/modules/dashboard/components/projects/project-description-context-form';
 import { ProjectHeader } from '@/core/presentation/modules/dashboard/components/projects/project-header';
 
 export default async function ProjectSettingsPage({ params }: { params: Promise<{ id: string }> }) {
@@ -13,8 +14,9 @@ export default async function ProjectSettingsPage({ params }: { params: Promise<
     <div className="mx-auto max-w-3xl">
       <ProjectHeader project={project} />
 
-      <div className="flex flex-col items-start gap-12">
+      <div className="space-y-8">
         <LLMConfigForm project={project} />
+        <ProjectDescriptionContextForm project={project} />
         <DeleteProjectPopover projectId={project.id} projectTitle={project.title} />
       </div>
     </div>
