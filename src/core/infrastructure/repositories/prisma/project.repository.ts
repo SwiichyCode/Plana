@@ -77,7 +77,7 @@ export class PrismaProjectRepository implements ProjectRepository {
           id: id,
         },
         data: {
-          projectDescriptionContext: projectDescriptionContext,
+          projectDescriptionContext,
         },
       });
     } catch (err) {

@@ -2,7 +2,7 @@ import { DI_SYMBOLS } from '#di/types';
 import { ProjectMemberService } from '@/core/domain/services/project-member.service';
 import { ProjectService } from '@/core/domain/services/project.service';
 import { CreateProjectUseCase } from '@/core/domain/use-cases/create-project';
-import { UpdateProjectUseCase } from '@/core/domain/use-cases/update-project';
+import { UpdateLLMConfigurationUseCase } from '@/core/domain/use-cases/update-llm-configuration';
 import { PrismaProjectMemberRepository } from '@/core/infrastructure/repositories/prisma/project-member.repository';
 import { PrismaProjectRepository } from '@/core/infrastructure/repositories/prisma/project.repository';
 import { createModule } from '@evyweb/ioctopus';
@@ -32,8 +32,8 @@ export function createProjectModule() {
     ]);
 
   projectModule
-    .bind(DI_SYMBOLS.UpdateProjectUseCase)
-    .toClass(UpdateProjectUseCase, [DI_SYMBOLS.ProjectService, DI_SYMBOLS.LLMProviderHandler]);
+    .bind(DI_SYMBOLS.UpdateLLMConfigurationUseCase)
+    .toClass(UpdateLLMConfigurationUseCase, [DI_SYMBOLS.ProjectService, DI_SYMBOLS.LLMProviderHandler]);
 
   return projectModule;
 }

@@ -18,9 +18,9 @@ const UpdateLLMConfigActionSchema = z.object({
 export const updateLLMConfigAction = authActionClient
   .schema(UpdateLLMConfigActionSchema)
   .action(async ({ parsedInput }) => {
-    const updateProjectUseCase = getInjection('UpdateProjectUseCase');
+    const updateLLMConfigurationUseCase = getInjection('UpdateLLMConfigurationUseCase');
     try {
-      await updateProjectUseCase.execute({
+      await updateLLMConfigurationUseCase.execute({
         id: parsedInput.id,
         llmProvider: parsedInput.llmProvider as SupportedLLMProvider,
         llmModel: parsedInput.llmModel,

@@ -12,7 +12,7 @@ import { ProjectMemberService } from '@/core/domain/services/project-member.serv
 import { ProjectService } from '@/core/domain/services/project.service';
 import { UserService } from '@/core/domain/services/user.service';
 import { CreateProjectUseCase } from '@/core/domain/use-cases/create-project';
-import { UpdateProjectUseCase } from '@/core/domain/use-cases/update-project';
+import { UpdateLLMConfigurationUseCase } from '@/core/domain/use-cases/update-llm-configuration';
 import { LLMProviderHandler } from '@/core/infrastructure/adapters/llm/llm-provider-handler';
 import { ClerkWebhookHandler } from '@/core/infrastructure/adapters/webhooks/clerk/clerk-webhook-handler';
 import { WebhookEventHandler } from '@/core/infrastructure/adapters/webhooks/clerk/clerk-webhook-handler.type';
@@ -30,7 +30,7 @@ export const DI_SYMBOLS = {
 
   // Use Cases
   CreateProjectUseCase: Symbol.for('CreateProjectUseCase'),
-  UpdateProjectUseCase: Symbol.for('UpdateProjectUseCase'),
+  UpdateLLMConfigurationUseCase: Symbol.for('UpdateLLMConfigurationUseCase'),
 
   // Repositories
   UserRepository: Symbol.for('UserRepository'),
@@ -60,7 +60,7 @@ export interface DI_RETURN_TYPES {
 
   // Use Cases
   CreateProjectUseCase: CreateProjectUseCase;
-  UpdateProjectUseCase: UpdateProjectUseCase;
+  UpdateLLMConfigurationUseCase: UpdateLLMConfigurationUseCase;
 
   // Repositories
   UserRepository: UserRepository;
