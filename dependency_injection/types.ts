@@ -10,6 +10,8 @@ import { ProjectMemberService } from '@/core/domain/services/project-member.serv
 import { ProjectService } from '@/core/domain/services/project.service';
 import { UserService } from '@/core/domain/services/user.service';
 import { CreateProjectUseCase } from '@/core/domain/use-cases/create-project';
+import { UpdateProjectUseCase } from '@/core/domain/use-cases/update-project';
+import { LLMProviderHandler } from '@/core/infrastructure/adapters/llm/llm-provider-handler';
 import { ClerkWebhookHandler } from '@/core/infrastructure/adapters/webhooks/clerk/clerk-webhook-handler';
 import { WebhookEventHandler } from '@/core/infrastructure/adapters/webhooks/clerk/clerk-webhook-handler.type';
 import { UserCreatedEvent } from '@/core/infrastructure/adapters/webhooks/clerk/events/user-created.event';
@@ -25,6 +27,7 @@ export const DI_SYMBOLS = {
 
   // Use Cases
   CreateProjectUseCase: Symbol.for('CreateProjectUseCase'),
+  UpdateProjectUseCase: Symbol.for('UpdateProjectUseCase'),
 
   // Repositories
   UserRepository: Symbol.for('UserRepository'),
@@ -37,6 +40,7 @@ export const DI_SYMBOLS = {
   // Webhooks
   ClerkWebhookHandler: Symbol.for('ClerkWebhookHandler'),
   WebhookEventHandler: Symbol.for('WebhookEventHandler'),
+  LLMProviderHandler: Symbol.for('LLMProviderHandler'),
   UserCreatedEvent: Symbol.for('UserCreatedEvent'),
 };
 
@@ -51,6 +55,7 @@ export interface DI_RETURN_TYPES {
 
   // Use Cases
   CreateProjectUseCase: CreateProjectUseCase;
+  UpdateProjectUseCase: UpdateProjectUseCase;
 
   // Repositories
   UserRepository: UserRepository;
@@ -63,5 +68,6 @@ export interface DI_RETURN_TYPES {
   // Webhooks
   ClerkWebhookHandler: ClerkWebhookHandler;
   WebhookEventHandler: WebhookEventHandler;
+  LLMProviderHandler: LLMProviderHandler;
   UserCreatedEvent: UserCreatedEvent;
 }
