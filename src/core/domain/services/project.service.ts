@@ -22,6 +22,13 @@ export class ProjectService {
     return await this.projectRepository.update(project);
   }
 
+  async updateDescriptionContext(id: string, projectDescriptionContext: string): Promise<Project> {
+    return await this.projectRepository.update({
+      id: id,
+      projectDescriptionContext: projectDescriptionContext,
+    });
+  }
+
   async delete(id: string): Promise<void> {
     return await this.projectRepository.delete(id);
   }

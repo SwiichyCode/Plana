@@ -6,6 +6,7 @@ export interface ProjectRepository {
   findByOwner(userId: string): Promise<Project[]>;
   create(project: CreateProject, tx?: TransactionContext): Promise<Project>;
   update(project: UpdateProject): Promise<Project>;
+  updateDescriptionContext(id: string, projectDescriptionContext: string): Promise<Project>;
   delete(id: string): Promise<void>;
 }
 
@@ -19,6 +20,7 @@ export type UpdateProject = {
   id: string;
   title?: string;
   description?: string;
+  projectDescriptionContext?: string;
   llmProvider?: string;
   llmModel?: string;
   llmApiKey?: string;

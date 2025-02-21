@@ -58,9 +58,26 @@ export class PrismaProjectRepository implements ProjectRepository {
         data: {
           title: project.title,
           description: project.description,
+          projectDescriptionContext: project.projectDescriptionContext,
           llmProvider: project.llmProvider,
           llmModel: project.llmModel,
           llmApiKey: project.llmApiKey ? await this.encryptionService.encrypt(project.llmApiKey) : null,
+        },
+      });
+    } catch (err) {
+      this.crashReporterService.report(err);
+      throw err;
+    }
+  }
+
+  async updateDescriptionContext(id: string, projectDescriptionContext: string): Promise<Project> {
+    try {
+      return await prisma.project.update({
+        where: {
+          id: id,
+        },
+        data: {
+          projectDescriptionContext: projectDescriptionContext,
         },
       });
     } catch (err) {
