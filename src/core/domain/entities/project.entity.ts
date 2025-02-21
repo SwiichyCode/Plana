@@ -5,7 +5,8 @@ export class Project {
     public description: string,
     public ownerId: string,
     public projectDescriptionContext: string | null,
-    public aiApiKey: string | null,
+    public llmProvider: string | null,
+    public llmApiKey: string | null,
     public createdAt: Date,
     public updatedAt: Date,
     public deletedAt: Date | null,
@@ -15,7 +16,8 @@ export class Project {
     this.description = description;
     this.ownerId = ownerId;
     this.projectDescriptionContext = projectDescriptionContext;
-    this.aiApiKey = aiApiKey;
+    this.llmProvider = llmProvider;
+    this.llmApiKey = llmApiKey;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
     this.deletedAt = deletedAt;

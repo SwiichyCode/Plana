@@ -1,6 +1,6 @@
 import { getInjection } from '#di/container';
-import { AiApiKeyForm } from '@/core/presentation/modules/dashboard/components/projects/ai-api-key.form';
 import { DeleteProjectPopover } from '@/core/presentation/modules/dashboard/components/projects/delete-project-popover';
+import { LLMConfigForm } from '@/core/presentation/modules/dashboard/components/projects/llm-config.form';
 import { ProjectHeader } from '@/core/presentation/modules/dashboard/components/projects/project-header';
 
 export default async function ProjectSettingsPage({ params }: { params: Promise<{ id: string }> }) {
@@ -12,9 +12,11 @@ export default async function ProjectSettingsPage({ params }: { params: Promise<
   return (
     <div className="mx-auto max-w-3xl">
       <ProjectHeader project={project} />
-      <AiApiKeyForm project={project} />
 
-      <DeleteProjectPopover projectId={project.id} projectTitle={project.title} />
+      <div className="flex flex-col items-start gap-12">
+        <LLMConfigForm project={project} />
+        <DeleteProjectPopover projectId={project.id} projectTitle={project.title} />
+      </div>
     </div>
   );
 }

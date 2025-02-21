@@ -15,7 +15,7 @@ export class PrismaProjectRepository implements ProjectRepository {
   async findById(id: string): Promise<Project | null> {
     try {
       const project = await prisma.project.findUnique({ where: { id, deletedAt: null } });
-      if (project?.aiApiKey) project.aiApiKey = await this.encryptionService.decrypt(project.aiApiKey);
+      if (project?.llmApiKey) project.llmApiKey = await this.encryptionService.decrypt(project.llmApiKey);
 
       return project;
     } catch (err) {
@@ -58,7 +58,8 @@ export class PrismaProjectRepository implements ProjectRepository {
         data: {
           title: project.title,
           description: project.description,
-          aiApiKey: project.aiApiKey ? await this.encryptionService.encrypt(project.aiApiKey) : null,
+          llmProvider: project.llmProvider,
+          llmApiKey: project.llmApiKey ? await this.encryptionService.encrypt(project.llmApiKey) : null,
         },
       });
     } catch (err) {
