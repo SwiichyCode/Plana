@@ -2,13 +2,13 @@
 
 import { Project } from '@/core/domain/entities/project.entity';
 import { Button } from '@/core/presentation/components/common/ui/button';
-import { Form, FormDescription } from '@/core/presentation/components/common/ui/form';
+import { Form, FormDescription, FormMessage } from '@/core/presentation/components/common/ui/form';
 import { InputForm } from '@/core/presentation/components/common/ui/input-form';
 import { LLMProviderCombobox } from '@/core/presentation/modules/dashboard/components/projects/llm-provider-combobox';
 import { maskApiKey } from '@/core/presentation/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CheckIcon, Loader, Trash } from 'lucide-react';
-import { useTransition } from 'react';
+import { useState, useTransition } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -23,6 +23,7 @@ type AddAiApiKeyProps = {
 
 export const LLMConfigForm = ({ project }: AddAiApiKeyProps) => {
   const [isPending, startTransition] = useTransition();
+  const [errorMessage, setErrorMessage] = useState('');
 
   const form = useForm<z.infer<typeof LLMConfigSchema>>({
     resolver: zodResolver(LLMConfigSchema),
@@ -38,12 +39,16 @@ export const LLMConfigForm = ({ project }: AddAiApiKeyProps) => {
       if (project?.llmApiKey) {
         await deleteLLMConfigAction({ id: project.id });
       } else {
-        await updateLLMConfigAction({
+        const response = await updateLLMConfigAction({
           id: project.id,
           llmProvider: data.llmProvider,
           llmModel: data.llmModel,
           llmApiKey: data.llmApiKey,
         });
+
+        if (response?.serverError) {
+          setErrorMessage(response.serverError);
+        }
       }
       form.reset();
     });
@@ -96,6 +101,7 @@ export const LLMConfigForm = ({ project }: AddAiApiKeyProps) => {
               </Button>
             )}
           </div>
+          {errorMessage && <FormMessage className="text-red-500">{errorMessage}</FormMessage>}
           <FormDescription>Enter your OpenAI API key to start using AI-powered features.</FormDescription>
         </div>
       </form>

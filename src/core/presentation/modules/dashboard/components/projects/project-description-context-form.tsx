@@ -2,10 +2,10 @@
 
 import { Project } from '@/core/domain/entities/project.entity';
 import { Button } from '@/core/presentation/components/common/ui/button';
-import { Form, FormDescription } from '@/core/presentation/components/common/ui/form';
+import { Form, FormDescription, FormMessage } from '@/core/presentation/components/common/ui/form';
 import { TextAreaForm } from '@/core/presentation/components/common/ui/textarea-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useTransition } from 'react';
+import { useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -18,6 +18,7 @@ type ProjectDescriptionContextFormProps = {
 
 export const ProjectDescriptionContextForm = ({ project }: ProjectDescriptionContextFormProps) => {
   const [isPending, startTransition] = useTransition();
+  const [errorMessage, setErrorMessage] = useState('');
 
   const form = useForm<z.infer<typeof ProjectDescriptionContextSchema>>({
     resolver: zodResolver(ProjectDescriptionContextSchema),
@@ -28,13 +29,17 @@ export const ProjectDescriptionContextForm = ({ project }: ProjectDescriptionCon
 
   function onSubmit(data: z.infer<typeof ProjectDescriptionContextSchema>) {
     startTransition(async () => {
-      await updateProjectDescriptionContextAction({
+      const response = await updateProjectDescriptionContextAction({
         id: project.id,
         projectDescriptionContext: data.projectDescriptionContext,
       });
-    });
 
-    form.reset();
+      if (response?.serverError) {
+        setErrorMessage(response.serverError);
+      }
+
+      form.reset();
+    });
   }
 
   return (
@@ -53,6 +58,8 @@ export const ProjectDescriptionContextForm = ({ project }: ProjectDescriptionCon
           project will be understood in future interactions. Include objectives, key features, and any relevant
           information.
         </FormDescription>
+
+        {errorMessage && <FormMessage className="text-red-500">{errorMessage}</FormMessage>}
 
         <Button type="submit" disabled={isPending}>
           {isPending ? <span className="opacity-50">Saving...</span> : 'Save your context'}

@@ -2,7 +2,7 @@
 
 import { getInjection } from '#di/container';
 import { SupportedLLMProvider } from '@/core/infrastructure/adapters/llm/llm-provider-handler';
-import { authActionClient } from '@/libs/next-safe-action.config';
+import { MyCustomError, authActionClient } from '@/libs/next-safe-action.config';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
 
@@ -29,6 +29,6 @@ export const updateLLMConfigAction = authActionClient
 
       redirect(`/dashboard/projects/${parsedInput.id}/settings`);
     } catch (error) {
-      throw error;
+      if (error instanceof Error) throw new MyCustomError(error.message);
     }
   });
