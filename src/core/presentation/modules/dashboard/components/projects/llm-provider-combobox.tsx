@@ -19,8 +19,8 @@ import { Check, ChevronsUpDown } from 'lucide-react';
 import { Control, UseFormReturn } from 'react-hook-form';
 
 type ComboboxProps = {
-  form: UseFormReturn<any>;
-  control?: Control<any>;
+  form: UseFormReturn<any>; // eslint-disable-line @typescript-eslint/no-explicit-any
+  control?: Control<any>; // eslint-disable-line @typescript-eslint/no-explicit-any
   disabled?: boolean;
   name: string;
 };

@@ -12,30 +12,32 @@ import { useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { deleteAiApiKeyAction } from '../../actions/delete-ai-api-key.action';
-import { updateAiApiKeyAction } from '../../actions/update-ai-api-key.action';
-import { LLMSetupSchema } from './llm-setup-schema';
+import { deleteLLMConfigAction } from '../../actions/delete-llm-config.action';
+import { updateLLMConfigAction } from '../../actions/update-llm-config.action';
+import { LLMConfigSchema } from './llm-config-schema';
 
 type AddAiApiKeyProps = {
   project: Project;
 };
 
-export const LLMSetupForm = ({ project }: AddAiApiKeyProps) => {
+export const LLMConfigForm = ({ project }: AddAiApiKeyProps) => {
   const [isPending, startTransition] = useTransition();
 
-  const form = useForm<z.infer<typeof LLMSetupSchema>>({
-    resolver: zodResolver(LLMSetupSchema),
+  const form = useForm<z.infer<typeof LLMConfigSchema>>({
+    resolver: zodResolver(LLMConfigSchema),
     defaultValues: {
       llmProvider: project.llmProvider ? project.llmProvider : 'mistral',
       llmApiKey: project.llmApiKey ? maskApiKey(project.llmApiKey) : '',
     },
   });
 
-  function onSubmit(data: z.infer<typeof LLMSetupSchema>) {
+  function onSubmit(data: z.infer<typeof LLMConfigSchema>) {
     startTransition(async () => {
-      project?.llmApiKey
-        ? await deleteAiApiKeyAction({ id: project.id })
-        : await updateAiApiKeyAction({ id: project.id, llmProvider: data.llmProvider, llmApiKey: data.llmApiKey });
+      if (project?.llmApiKey) {
+        await deleteLLMConfigAction({ id: project.id });
+      } else {
+        await updateLLMConfigAction({ id: project.id, llmProvider: data.llmProvider, llmApiKey: data.llmApiKey });
+      }
       form.reset();
     });
   }

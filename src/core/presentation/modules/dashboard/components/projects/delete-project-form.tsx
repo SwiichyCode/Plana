@@ -35,7 +35,7 @@ export const DeleteProjectForm = ({ projectId, projectTitle }: ProjectDeleteForm
     name: 'projectTitle',
   });
 
-  function onSubmit(data: z.infer<typeof DeleteProjectSchema>) {
+  function onSubmit() {
     startTransition(async () => {
       await deleteProjectAction({ projectId });
 

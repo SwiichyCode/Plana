@@ -5,7 +5,7 @@ import { authActionClient } from '@/libs/next-safe-action.config';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
 
-const UpdateAiApiKeyActionSchema = z.object({
+const UpdateLLMConfigActionSchema = z.object({
   id: z.string(),
   title: z.string().optional(),
   description: z.string().optional(),
@@ -13,8 +13,8 @@ const UpdateAiApiKeyActionSchema = z.object({
   llmApiKey: z.string(),
 });
 
-export const updateAiApiKeyAction = authActionClient
-  .schema(UpdateAiApiKeyActionSchema)
+export const updateLLMConfigAction = authActionClient
+  .schema(UpdateLLMConfigActionSchema)
   .action(async ({ parsedInput }) => {
     try {
       const projectService = getInjection('ProjectService');
