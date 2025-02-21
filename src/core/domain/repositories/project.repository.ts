@@ -20,5 +20,6 @@ export type UpdateProject = {
   title?: string;
   description?: string;
   llmProvider?: string;
+  llmModel?: string;
   llmApiKey?: string;
 };

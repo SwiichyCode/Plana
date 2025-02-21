@@ -8,6 +8,7 @@ export class OpenAIProvider implements LLMRepository {
       await openai.models.list();
       return true;
     } catch (error) {
+      console.error(error);
       return false;
     }
   }
