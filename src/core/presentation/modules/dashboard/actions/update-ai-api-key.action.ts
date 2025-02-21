@@ -9,7 +9,8 @@ const UpdateAiApiKeyActionSchema = z.object({
   id: z.string(),
   title: z.string().optional(),
   description: z.string().optional(),
-  aiApiKey: z.string(),
+  llmProvider: z.string(),
+  llmApiKey: z.string(),
 });
 
 export const updateAiApiKeyAction = authActionClient
@@ -17,7 +18,11 @@ export const updateAiApiKeyAction = authActionClient
   .action(async ({ parsedInput }) => {
     try {
       const projectService = getInjection('ProjectService');
-      await projectService.update({ id: parsedInput.id, aiApiKey: parsedInput.aiApiKey });
+      await projectService.update({
+        id: parsedInput.id,
+        llmProvider: parsedInput.llmProvider,
+        llmApiKey: parsedInput.llmApiKey,
+      });
       redirect(`/dashboard/projects/${parsedInput.id}/settings`);
     } catch (error) {
       throw error;

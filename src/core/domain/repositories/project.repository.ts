@@ -19,5 +19,6 @@ export type UpdateProject = {
   id: string;
   title?: string;
   description?: string;
-  aiApiKey?: string;
+  llmProvider?: string;
+  llmApiKey?: string;
 };
