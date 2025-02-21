@@ -1,3 +1,4 @@
+import { mistralLastedModels, openAILastedModels } from '@/core/constants/llm-models';
 import { Button } from '@/core/presentation/components/common/ui/button';
 import {
   Command,
@@ -23,14 +24,12 @@ type ComboboxProps = {
   control?: Control<any>; // eslint-disable-line @typescript-eslint/no-explicit-any
   disabled?: boolean;
   name: string;
+  provider?: string;
 };
 
-const aiProviders = [
-  { label: 'OpenAI', value: 'openai' },
-  { label: 'Mistral', value: 'mistral' },
-] as const;
+export const LLMModelCombobox = ({ form, control, disabled, name, provider }: ComboboxProps) => {
+  const currentModels = provider === 'openai' ? openAILastedModels : mistralLastedModels;
 
-export const LLMProviderCombobox = ({ form, control, disabled, name }: ComboboxProps) => {
   return (
     <FormField
       control={control}
@@ -45,7 +44,7 @@ export const LLMProviderCombobox = ({ form, control, disabled, name }: ComboboxP
                   role="combobox"
                   className={cn('w-[200px] justify-between', !field.value && 'text-muted-foreground')}
                 >
-                  {field.value ? aiProviders.find(provider => provider.value === field.value)?.label : 'Select model'}
+                  {field.value ? currentModels.find(model => model === field.value) : 'Select model'}
                   <ChevronsUpDown className="opacity-50" />
                 </Button>
               </FormControl>
@@ -55,18 +54,16 @@ export const LLMProviderCombobox = ({ form, control, disabled, name }: ComboboxP
                 <CommandList>
                   <CommandEmpty>No results found.</CommandEmpty>
                   <CommandGroup>
-                    {aiProviders.map(provider => (
+                    {currentModels.map(model => (
                       <CommandItem
-                        value={provider.label}
-                        key={provider.value}
+                        value={model}
+                        key={model}
                         onSelect={() => {
-                          form.setValue(name, provider.value);
+                          form.setValue(name, model);
                         }}
                       >
-                        {provider.label}
-                        <Check
-                          className={cn('ml-auto', provider.value === field.value ? 'opacity-100' : 'opacity-0')}
-                        />
+                        {model}
+                        <Check className={cn('ml-auto', model === field.value ? 'opacity-100' : 'opacity-0')} />
                       </CommandItem>
                     ))}
                   </CommandGroup>
@@ -74,7 +71,7 @@ export const LLMProviderCombobox = ({ form, control, disabled, name }: ComboboxP
               </Command>
             </PopoverContent>
           </Popover>
-          <FormDescription>This is the provider you want to use for this project.</FormDescription>
+          <FormDescription>This is the model you want to use for this project.</FormDescription>
           <FormMessage />
         </FormItem>
       )}

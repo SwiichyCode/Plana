@@ -7,7 +7,12 @@ export class UpdateProjectUseCase {
     public readonly llmProviderHandler: LLMProviderHandler,
   ) {}
 
-  async execute(projectId: string, llmProvider: SupportedLLMProvider, llmApiKey: string): Promise<void> {
+  async execute(
+    projectId: string,
+    llmProvider: SupportedLLMProvider,
+    llmModel: string,
+    llmApiKey: string,
+  ): Promise<void> {
     const isValidApiKey = await this.llmProviderHandler.validateApiKey(llmProvider, llmApiKey);
 
     if (!isValidApiKey) throw new Error('Invalid API key');

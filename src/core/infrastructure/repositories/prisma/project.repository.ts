@@ -59,6 +59,7 @@ export class PrismaProjectRepository implements ProjectRepository {
           title: project.title,
           description: project.description,
           llmProvider: project.llmProvider,
+          llmModel: project.llmModel,
           llmApiKey: project.llmApiKey ? await this.encryptionService.encrypt(project.llmApiKey) : null,
         },
       });

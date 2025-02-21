@@ -1,4 +1,5 @@
 import { EncryptionRepository } from '@/core/domain/repositories/encryption.repository';
+import { InternalLLMRepository } from '@/core/domain/repositories/llm.repository';
 import { CrashReporterRepository } from '@/core/domain/repositories/monitoring.repository';
 import { ProjectMemberRepository } from '@/core/domain/repositories/project-member.repository';
 import { ProjectRepository } from '@/core/domain/repositories/project.repository';
@@ -6,6 +7,7 @@ import { TransactionManager } from '@/core/domain/repositories/transaction-manag
 import { UserRepository } from '@/core/domain/repositories/user.repository';
 import { CrashReporterService } from '@/core/domain/services/crash-reporter.service';
 import { EncryptionService } from '@/core/domain/services/encryption.service';
+import { InternalLLMService } from '@/core/domain/services/internal-llm.service';
 import { ProjectMemberService } from '@/core/domain/services/project-member.service';
 import { ProjectService } from '@/core/domain/services/project.service';
 import { UserService } from '@/core/domain/services/user.service';
@@ -23,6 +25,7 @@ export const DI_SYMBOLS = {
   ProjectMemberService: Symbol.for('ProjectMemberService'),
   CrashReporterService: Symbol.for('CrashReporterService'),
   EncryptionService: Symbol.for('EncryptionService'),
+  InternalLLMService: Symbol.for('InternalLLMService'),
   TransactionManager: Symbol.for('TransactionManager'),
 
   // Use Cases
@@ -36,6 +39,7 @@ export const DI_SYMBOLS = {
   CrashReporterRepository: Symbol.for('CrashReporterRepository'),
   TransactionRepository: Symbol.for('TransactionRepository'),
   EncryptionRepository: Symbol.for('EncryptionRepository'),
+  InternalLLMRepository: Symbol.for('InternalLLMRepository'),
 
   // Webhooks
   ClerkWebhookHandler: Symbol.for('ClerkWebhookHandler'),
@@ -51,6 +55,7 @@ export interface DI_RETURN_TYPES {
   ProjectMemberService: ProjectMemberService;
   CrashReporterService: CrashReporterService;
   EncryptionService: EncryptionService;
+  InternalLLMService: InternalLLMService;
   TransactionManager: TransactionManager;
 
   // Use Cases
@@ -64,6 +69,7 @@ export interface DI_RETURN_TYPES {
   CrashReporterRepository: CrashReporterRepository;
   TransactionRepository: TransactionManager;
   EncryptionRepository: EncryptionRepository;
+  InternalLLMRepository: InternalLLMRepository;
 
   // Webhooks
   ClerkWebhookHandler: ClerkWebhookHandler;

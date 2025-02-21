@@ -11,6 +11,7 @@ const UpdateLLMConfigActionSchema = z.object({
   title: z.string().optional(),
   description: z.string().optional(),
   llmProvider: z.string(),
+  llmModel: z.string(),
   llmApiKey: z.string(),
 });
 
@@ -22,6 +23,7 @@ export const updateLLMConfigAction = authActionClient
       await updateProjectUseCase.execute(
         parsedInput.id,
         parsedInput.llmProvider as SupportedLLMProvider,
+        parsedInput.llmModel,
         parsedInput.llmApiKey,
       );
 

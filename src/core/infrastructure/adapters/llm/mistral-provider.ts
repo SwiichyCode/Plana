@@ -8,6 +8,7 @@ export class MistralProvider implements LLMRepository {
       await mistral.models.list();
       return true;
     } catch (error) {
+      console.error(error);
       return false;
     }
   }
