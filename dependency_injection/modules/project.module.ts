@@ -33,7 +33,7 @@ export function createProjectModule() {
 
   projectModule
     .bind(DI_SYMBOLS.UpdateLLMConfigurationUseCase)
-    .toClass(UpdateLLMConfigurationUseCase, [DI_SYMBOLS.ProjectService, DI_SYMBOLS.LLMProviderHandler]);
+    .toClass(UpdateLLMConfigurationUseCase, [DI_SYMBOLS.ProjectService, DI_SYMBOLS.LLMProviderFactory]);
 
   return projectModule;
 }

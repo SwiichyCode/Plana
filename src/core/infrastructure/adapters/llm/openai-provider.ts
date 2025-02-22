@@ -2,10 +2,14 @@ import { LLMRepository } from '@/core/domain/repositories/llm.repository';
 import { OpenAI } from 'openai';
 
 export class OpenAIProvider implements LLMRepository {
-  async validateApiKey(apiKey: string): Promise<boolean> {
+  private openai: OpenAI;
+
+  constructor(public readonly apiKey: string) {
+    this.openai = new OpenAI({ apiKey });
+  }
+  async validateApiKey(): Promise<boolean> {
     try {
-      const openai = new OpenAI({ apiKey });
-      await openai.models.list();
+      await this.openai.models.list();
       return true;
     } catch (error) {
       console.error(error);
