@@ -17,7 +17,7 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from '@/core/presentation/components/common/ui/sidebar';
-import { ChevronRight, Eye, File, Plus, Settings2, Users } from 'lucide-react';
+import { Bot, ChevronRight, Eye, File, Plus, Settings2, Users } from 'lucide-react';
 import { useLocalStorage } from 'usehooks-ts';
 
 type SidebarProjectProps = {
@@ -68,6 +68,15 @@ export const Sidebar_Project = ({ projects }: SidebarProjectProps) => {
               <CollapsibleContent>
                 <SidebarMenuSub>
                   <SidebarMenuSubItem>
+                    <SidebarMenuSubButton asChild>
+                      <a
+                        href={`/dashboard/projects/${project.id}/playground`}
+                        className="text-xs text-muted-foreground"
+                      >
+                        <Bot />
+                        <span className="text-sx truncate">Playground</span>
+                      </a>
+                    </SidebarMenuSubButton>
                     <SidebarMenuSubButton asChild>
                       <a href={`/dashboard/projects/${project.id}`} className="text-xs text-muted-foreground">
                         <Eye />
