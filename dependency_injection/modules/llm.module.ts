@@ -10,7 +10,7 @@ export function createLLMModule() {
   llmModule.bind(DI_SYMBOLS.InternalLLMRepository).toClass(InternalOpenAIProvider);
   llmModule.bind(DI_SYMBOLS.InternalLLMService).toClass(InternalLLMService, [DI_SYMBOLS.InternalLLMRepository]);
 
-  llmModule.bind(DI_SYMBOLS.LLMProviderHandler).toClass(LLMProviderHandler);
+  // llmModule.bind(DI_SYMBOLS.LLMProviderHandler).toClass(LLMProviderHandler);
 
   return llmModule;
 }

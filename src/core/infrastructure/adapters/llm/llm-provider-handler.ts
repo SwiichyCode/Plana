@@ -8,10 +8,10 @@ export type SupportedLLMProvider = 'mistral' | 'openai';
 export class LLMProviderHandler {
   private providers: Map<SupportedLLMProvider, LLMRepository>;
 
-  constructor() {
-    this.providers = new Map([
-      ['mistral', new MistralProvider()],
-      ['openai', new OpenAIProvider()],
+  constructor(apiKeys: { [key in SupportedLLMProvider]?: string }) {
+    this.providers = new Map<SupportedLLMProvider, LLMRepository>([
+      ['mistral', new MistralProvider(apiKeys.mistral || '')],
+      ['openai', new OpenAIProvider(apiKeys.openai || '')],
     ]);
   }
 
