@@ -24,6 +24,36 @@ type SidebarProjectProps = {
   projects: Project[];
 };
 
+const navigationItems = [
+  {
+    name: 'Playground',
+    href: '/dashboard/projects/playground',
+    icon: <Bot />,
+  },
+  {
+    name: 'Project',
+    href: '/dashboard/projects/project',
+    icon: <Eye />,
+  },
+  {
+    name: 'Teams',
+    href: '/dashboard/projects/teams',
+    icon: <Users />,
+  },
+  {
+    name: 'Settings',
+    href: '/dashboard/projects/settings',
+    icon: <Settings2 />,
+  },
+];
+
+const generateNavigationItems = (projectId: string) => {
+  return navigationItems.map(item => ({
+    ...item,
+    href: `/dashboard/projects/${projectId}/${item.href.split('/').pop()}`,
+  }));
+};
+
 export const Sidebar_Project = ({ projects }: SidebarProjectProps) => {
   const [currentCollapsibleProjectOpen, setCurrentCollapsibleProjectOpen] = useLocalStorage(
     'current-collapsible-project-open',
@@ -68,37 +98,14 @@ export const Sidebar_Project = ({ projects }: SidebarProjectProps) => {
               <CollapsibleContent>
                 <SidebarMenuSub>
                   <SidebarMenuSubItem>
-                    <SidebarMenuSubButton asChild>
-                      <a
-                        href={`/dashboard/projects/${project.id}/playground`}
-                        className="text-xs text-muted-foreground"
-                      >
-                        <Bot />
-                        <span className="text-sx truncate">Playground</span>
-                      </a>
-                    </SidebarMenuSubButton>
-                    <SidebarMenuSubButton asChild>
-                      <a href={`/dashboard/projects/${project.id}`} className="text-xs text-muted-foreground">
-                        <Eye />
-                        <span className="text-sx truncate">Project</span>
-                      </a>
-                    </SidebarMenuSubButton>
-                  </SidebarMenuSubItem>
-                  <SidebarMenuSubItem>
-                    <SidebarMenuSubButton asChild>
-                      <a href={`/dashboard/projects/${project.id}`} className="text-xs text-muted-foreground">
-                        <Users />
-                        <span className="text-sx truncate">Teams</span>
-                      </a>
-                    </SidebarMenuSubButton>
-                  </SidebarMenuSubItem>
-                  <SidebarMenuSubItem>
-                    <SidebarMenuSubButton asChild>
-                      <a href={`/dashboard/projects/${project.id}/settings`} className="text-xs text-muted-foreground">
-                        <Settings2 />
-                        <span className="text-sx truncate">Settings</span>
-                      </a>
-                    </SidebarMenuSubButton>
+                    {generateNavigationItems(project.id).map(item => (
+                      <SidebarMenuSubButton asChild key={item.name}>
+                        <a href={item.href} className="text-xs text-muted-foreground">
+                          {item.icon}
+                          <span className="text-sx truncate">{item.name}</span>
+                        </a>
+                      </SidebarMenuSubButton>
+                    ))}
                   </SidebarMenuSubItem>
                 </SidebarMenuSub>
               </CollapsibleContent>
