@@ -14,6 +14,7 @@ import { UserService } from '@/core/domain/services/user.service';
 import { CreateProjectUseCase } from '@/core/domain/use-cases/create-project';
 import { UpdateLLMConfigurationUseCase } from '@/core/domain/use-cases/update-llm-configuration';
 import { LLMProviderHandler } from '@/core/infrastructure/adapters/llm/llm-provider-handler';
+import { LLMProviderFactory } from '@/core/infrastructure/adapters/llm/refactoring/llm-provider.factory';
 import { ClerkWebhookHandler } from '@/core/infrastructure/adapters/webhooks/clerk/clerk-webhook-handler';
 import { WebhookEventHandler } from '@/core/infrastructure/adapters/webhooks/clerk/clerk-webhook-handler.type';
 import { UserCreatedEvent } from '@/core/infrastructure/adapters/webhooks/clerk/events/user-created.event';
@@ -46,6 +47,8 @@ export const DI_SYMBOLS = {
   WebhookEventHandler: Symbol.for('WebhookEventHandler'),
   LLMProviderHandler: Symbol.for('LLMProviderHandler'),
   UserCreatedEvent: Symbol.for('UserCreatedEvent'),
+
+  LLMProviderFactory: Symbol.for('LLMProviderFactory'),
 };
 
 export interface DI_RETURN_TYPES {
@@ -76,4 +79,6 @@ export interface DI_RETURN_TYPES {
   WebhookEventHandler: WebhookEventHandler;
   LLMProviderHandler: LLMProviderHandler;
   UserCreatedEvent: UserCreatedEvent;
+
+  LLMProviderFactory: LLMProviderFactory;
 }
