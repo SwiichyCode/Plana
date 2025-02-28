@@ -8,6 +8,7 @@ export class Project {
     public llmProvider: string | null,
     public llmModel: string | null,
     public llmApiKey: string | null,
+    public llmContext: string | null,
     public createdAt: Date,
     public updatedAt: Date,
     public deletedAt: Date | null,
@@ -20,6 +21,7 @@ export class Project {
     this.llmProvider = llmProvider;
     this.llmModel = llmModel;
     this.llmApiKey = llmApiKey;
+    this.llmContext = llmContext;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
     this.deletedAt = deletedAt;

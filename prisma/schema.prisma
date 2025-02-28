@@ -38,6 +38,7 @@ model Project {
   llmProvider  String?
   llmModel     String?
   llmApiKey    String?
+  llmContext   String? 
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   deletedAt   DateTime?

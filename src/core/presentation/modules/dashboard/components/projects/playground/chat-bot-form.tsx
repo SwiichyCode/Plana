@@ -8,9 +8,10 @@ import { useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import { handleUserChatbotAction } from '../../../actions/playground/handle-user-chatbot.action';
 import { ChatBotSchema } from './chat-bot-schema';
 
-export const ChatBotForm = () => {
+export const ChatBotForm = ({ id }: { id: string }) => {
   const [isPending, startTransition] = useTransition();
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -23,9 +24,10 @@ export const ChatBotForm = () => {
 
   function onSubmit(data: z.infer<typeof ChatBotSchema>) {
     startTransition(async () => {
-      // Send the data to the server
-      console.log(data);
+      handleUserChatbotAction({ id: id, content: data.content });
     });
+
+    form.reset();
   }
 
   return (
